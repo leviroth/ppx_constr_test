@@ -1,0 +1,8 @@
+(jbuild_version 1)
+
+(library
+ ((name ppx_constr_test)
+  (kind ppx_rewriter)
+  (synopsis "Test if a constructor matches a given variant.")
+  (preprocess (pps (ppx_metaquot)))
+  (libraries (ppx_core ppx_driver))))
