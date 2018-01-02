@@ -1,10 +1,14 @@
-This simple ppx rewriter allows you to test if a variant instance matches a given constructor. For example,
+This simple ppx rewriter allows you to test if a variant instance matches a
+given constructor. `[%constr_test <constructor>] x` returns true iff
+`<constructor>` is the constructor of `x`. For example,
 
 ```ocaml
-type t = Int of int | Char of char
+[%constr_test None] None        = true
+[%constr_test None] (Some 1)    = false
 
-let () =
-  assert ([%constr_test Int __] (Int 1))
+[%constr_test Some __] (Some 1) = true
+[%constr_test Some __] None     = false
 ```
 
-A placeholder such as `__` must be used to tell the rewriter if the desired constructor takes arguments.
+For constructors that take arguments, an argument pattern such as `__` must be
+included; otherwise, the rewriter cannot infer the arity of the constructor.
